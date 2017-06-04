@@ -43,7 +43,7 @@ function osTask(cmd, args = [] ){
       if (!Array.isArray(args)) {
         reject('args not an array.');
       } else {
-        task.execFile(cmd, args, ['uid':0], (error, stdout, stderr) => {
+        task.execFile(cmd, args, {'uid':0}, (error, stdout, stderr) => {
           if (error) {
             //console.log(error);
             reject(stderr);
