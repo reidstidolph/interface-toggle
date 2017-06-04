@@ -116,7 +116,7 @@ module.exports = {
     getInterfaceState(iface)
       .then(
         (results)=> {
-          callback(null, {state: results});
+          callback(null, results);
         }
       )
       .catch(

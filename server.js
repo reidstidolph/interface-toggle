@@ -45,7 +45,7 @@ router.route('/interface')
         res.json({ message: err});
       }
       else {
-        res.json(results);
+        res.json({state: results});
       }
     });
     //res.json({ message: 'up' });
