@@ -5,7 +5,7 @@ const express    = require('express');        // call express
 const app        = express();                 // define our app using express
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 8080;        // set our port
-const interface = require('/interface');
+const iface = require('/interface');
 
 // parse application/json
 app.use(bodyParser.json());
