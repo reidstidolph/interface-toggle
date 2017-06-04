@@ -134,6 +134,7 @@ module.exports = {
       )
       .catch(
         (error)=> {
+          console.log(error);
           callback(error);
         }
       );
