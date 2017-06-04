@@ -33,14 +33,7 @@ router.route('/interface')
         res.json({ error: e});
       }
       else {
-        iface.get((err)=>{
-          if (err) {
-            res.json({ error: err});
-          }
-          else {
-            res.json({state: results});
-          }
-        });
+        res.json({ success: 200});
       }
     })
   })
