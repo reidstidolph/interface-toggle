@@ -80,36 +80,23 @@ function intSet(intf, state) {
             console.log("Interface up...turning down.");
             return osTask('ip', ['link', 'set', intf, 'down'])
               .then((output)=>{return output;})
-              .catch((error)=>{reject(error);});
+              .catch((error)=>{return error;});
           } else if (state == 'down') {
             console.log("Interface down...turning up.");
             return osTask('ip', ['link', 'set', intf, 'up'])
               .then((output)=>{return output;})
-              .catch((error)=>{reject(error);});
+              .catch((error)=>{return error;});
           }
         }
       )
       .catch(
         (reason)=>{
           console.error('Something went wrong', reason);
-          reject(reason);
+          return reason;
         }
       );
   }
 }
-/*
-intSet(iface)
-.then(
-  (output)=> {
-    console.log(output);
-  }
-)
-.catch(
-  (error)=> {
-    console.log(error);
-  }
-);
-*/
 
 module.exports = {
   get : (callback)=>{
@@ -129,13 +116,11 @@ module.exports = {
     intSet(iface, state)
       .then(
         (results)=> {
-          console.log(results);
           callback(null);
         }
       )
       .catch(
         (error)=> {
-          console.log(error);
           callback(error);
         }
       );
