@@ -18,13 +18,6 @@ app.use(express.static('client')); // serve client HTML
 // =============================================================================
 const router = express.Router();              // get an instance of the express Router
 
-// middleware to use for all requests
-router.use(function(req, res, next) {
-    // do logging
-    console.log('Something is happening.');
-    next(); // make sure we go to the next routes and don't stop here
-});
-
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
@@ -33,22 +26,34 @@ router.get('/', function(req, res) {
 router.route('/interface')
   .post((req, res)=> {
 
-    console.log("change interface state");
-    res.json({ message: 'changed' });
-
+    console.log("request to change interface state.");
+    iface.set((e)=>{
+      if (e) {
+        res.json({ error: e});
+      }
+      else {
+        iface.get((err)=>{
+          if (err) {
+            res.json({ error: err});
+          }
+          else {
+            res.json({state: results});
+          }
+        });
+      }
+    })
   })
   .get((req, res)=> {
 
-    console.log("get interface state");
+    console.log("request to get interface state.");
     iface.get((err, results)=>{
       if (err) {
-        res.json({ message: err});
+        res.json({ state: err});
       }
       else {
         res.json({state: results});
       }
     });
-    //res.json({ message: 'up' });
   })
 
 // more routes for our API will happen here

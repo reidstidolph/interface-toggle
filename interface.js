@@ -125,8 +125,17 @@ module.exports = {
         }
       );
   },
-  set : (callback)=>{
-    // initialize callback error to null
-    var error = null;
+  set : (callback, state)=>{
+    intSet(iface, state)
+      .then(
+        (results)=> {
+          callback(null);
+        }
+      )
+      .catch(
+        (error)=> {
+          callback(error);
+        }
+      );
   }
 }
