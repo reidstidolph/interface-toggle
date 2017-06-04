@@ -29,7 +29,7 @@ router.route('/interface')
     console.log("request to change interface state.");
     iface.set((e)=>{
       if (e) {
-        console.log(e);
+        console.log("error");
         res.json({ error: e});
       }
       else {
