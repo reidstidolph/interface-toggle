@@ -80,12 +80,12 @@ function intSet(intf, state) {
             console.log("Interface up...turning down.");
             return osTask('ip', ['link', 'set', intf, 'down'])
               .then((output)=>{return output;})
-              .catch((error)=>{return error;});
+              .catch((error)=>{reject(error);});
           } else if (state == 'down') {
             console.log("Interface down...turning up.");
             return osTask('ip', ['link', 'set', intf, 'up'])
               .then((output)=>{return output;})
-              .catch((error)=>{return error;});
+              .catch((error)=>{reject(error);});
           }
         }
       )
