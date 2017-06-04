@@ -73,28 +73,37 @@ function intSet(intf, state) {
   // state not supplied. toggle the interface based on current state
   else {
     // return the getInterfaceState promise, with the osTask promise nested
-    getInterfaceState(intf)
+    return getInterfaceState(intf)
       .then(
         (state)=>{
           if (state == 'up') {
             console.log("Interface up...turning down.");
+            return Promise.all([state, osTask('ip', ['link', 'set', intf, 'down'])])
+            /*
             return osTask('ip', ['link', 'set', intf, 'down'])
               .then((output)=>{return output;})
               .catch((error)=>{return error;});
+            */
           } else if (state == 'down') {
             console.log("Interface down...turning up.");
+            return Promise.all([state, osTask('ip', ['link', 'set', intf, 'up'])])
+            /*
             return osTask('ip', ['link', 'set', intf, 'up'])
               .then((output)=>{return output;})
               .catch((error)=>{return error;});
+            */
           }
+        }
+      )
+      .then(
+        (finalResults)=> {
+          return finalResults[1];
         }
       )
       .catch(
         (reason)=>{
           console.error('Something went wrong', reason);
-          return new Promise((resolve, reject)=> {
-            reject(reason);
-          });
+          return reason;
         }
       );
   }
