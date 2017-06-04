@@ -97,6 +97,8 @@ function intSet(intf, state) {
       )
       .then(
         (finalResults)=> {
+          console.log(finalResults[0]);
+          console.log(finalResults[1]);
           return finalResults[1];
         }
       )
