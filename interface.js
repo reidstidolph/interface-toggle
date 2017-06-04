@@ -121,7 +121,7 @@ module.exports = {
       )
       .catch(
         (error)=> {
-          callback(error);
+          callback(error, null);
         }
       );
   },

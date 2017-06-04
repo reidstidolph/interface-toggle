@@ -5,7 +5,7 @@ const express    = require('express');        // call express
 const app        = express();                 // define our app using express
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 8080;        // set our port
-const iface = require('/interface');
+const iface = require('./interface');
 
 // parse application/json
 app.use(bodyParser.json());
@@ -40,7 +40,15 @@ router.route('/interface')
   .get((req, res)=> {
 
     console.log("get interface state");
-    res.json({ message: 'up' });
+    iface.get((err, results)=>{
+      if (err) {
+        res.json({ message: err});
+      }
+      else {
+        res.json(results);
+      }
+    });
+    //res.json({ message: 'up' });
   })
 
 // more routes for our API will happen here
