@@ -129,6 +129,7 @@ module.exports = {
     intSet(iface, state)
       .then(
         (results)=> {
+          console.log(results);
           callback(null);
         }
       )
