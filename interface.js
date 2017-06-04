@@ -97,7 +97,7 @@ function intSet(intf, state) {
       );
   }
 }
-
+/*
 intSet(iface)
 .then(
   (output)=> {
@@ -109,7 +109,7 @@ intSet(iface)
     console.log(error);
   }
 );
-
+*/
 
 module.exports = {
   get : (callback)=>{
