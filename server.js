@@ -47,6 +47,8 @@ router.route('/interface')
   .get((req, res)=> {
 
     console.log("request to get interface state.");
+    console.log(req.params);
+    console.log(req.body);
     iface.get((err, results)=>{
       if (err) {
         res.json({ state: err});
