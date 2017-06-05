@@ -40,14 +40,12 @@ router.route('/interface')
             res.json({state: results});
           }
         });
-        //res.json({ success: 200});
       }
     })
   })
   .get((req, res)=> {
 
     console.log("request to get interface state.");
-    console.log(req.params);
     console.log(req.body);
     console.log(req.query);
     iface.get((err, results)=>{
