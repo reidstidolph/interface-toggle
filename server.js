@@ -29,11 +29,18 @@ router.route('/interface')
     console.log("request to change interface state.");
     iface.set((e)=>{
       if (e) {
-        console.log("error");
         res.json({ error: e});
       }
       else {
-        res.json({ success: 200});
+        iface.get((err, results)=>{
+          if (err) {
+            res.json({ state: err});
+          }
+          else {
+            res.json({state: results});
+          }
+        });
+        //res.json({ success: 200});
       }
     })
   })

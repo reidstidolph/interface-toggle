@@ -78,30 +78,13 @@ function intSet(intf, state) {
         (state)=>{
           if (state == 'up') {
             console.log("Interface up...turning down.");
-            //return Promise.all([state, osTask('sudo', ['ip', 'link', 'set', intf, 'down'])])
-
-            return osTask('ip', ['link', 'set', intf, 'down'])
-            /*  .then((output)=>{return output;})
-            /*  .catch((error)=>{return error;});
-            */
+            return osTask('ip', ['link', 'set', intf, 'down']);
           } else if (state == 'down') {
             console.log("Interface down...turning up.");
-            //return Promise.all([state, osTask('sudo', ['ip', 'link', 'set', intf, 'up'])])
-
-            return osTask('ip', ['link', 'set', intf, 'up'])
-            /*  .then((output)=>{return output;})
-            /*  .catch((error)=>{return error;});
-            */
+            return osTask('ip', ['link', 'set', intf, 'up']);
           }
         }
       )
-      /*
-      .then(
-        (finalResults)=> {
-          return finalResults[1];
-        }
-      );
-      */
   }
 }
 
