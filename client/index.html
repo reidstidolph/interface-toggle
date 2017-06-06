@@ -3,10 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Interface toggle</title>
+  <!--
+     Pulls down switch.css containing style CSS for the toggle
+  -->
   <link rel="stylesheet" type="text/css" href="switch.css">
-  <script src="ifacectl.js"></script>
+  <!--
+     Pulls down the interface controler client side JS, which handles making
+     REST requests to the server.
+  -->
+  <script src="ifacectl_client.js"></script>
 </head>
 <body>
+  <!--
+      This div contains the HTML for the toggle switch
+  -->
   <div class="onoffswitch">
     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="ifacetoggle" onclick="toggle(this);" checked>
     <label class="onoffswitch-label" for="ifacetoggle">
@@ -14,9 +24,17 @@
       <span class="onoffswitch-switch"></span>
     </label>
   </div>
+
 </body>
+<!--
+    This JS gets initial interface state, and sets up a handler for clicks on
+    the toggle switch.
+-->
 <script>
 
+/*
+*  Handle a click of the toggle switch
+*/
 function toggle(status){
   console.log("changing interface state");
   if (status.checked === true) {
@@ -52,7 +70,9 @@ function toggle(status){
   }
 }
 
-// get initial interface state, and set state of iface toggle switch
+/*
+*   Get initial interface state, and set state of iface toggle switch
+*/
 iface.get("int1", function(err, results){
   if (err) {
     console.log("got error");

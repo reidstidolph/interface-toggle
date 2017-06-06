@@ -6,7 +6,7 @@ const app        = express();               // define our app using express
 const bodyParser = require('body-parser');  // uses body-parser  express middleware
 const router = express.Router();            // get an instance of the express Router
 const port = process.env.PORT || 8080;      // set our port
-const iface = require('./ifacectl');        // interface controller
+const iface = require('./ifacectl_server'); // interface controller
 
 // Map of interfaces available to be managed. Key is the name of the interace
 // available to the front-end. Value is the interface name in in the back-end.
