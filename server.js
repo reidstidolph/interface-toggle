@@ -74,7 +74,7 @@ router.route('/interface/:ifaceName')
       // query and body is valid
       // check to see if the requested interfaceName exists in our ifaceMap
       if (ifaceMap.has(req.params.ifaceName)) {
-        iface.set(ifaceMap.get(ifaceMap.get(req.params.ifaceName), req.query.state || req.body.state || null, (e)=>{
+        iface.set(ifaceMap.get(req.params.ifaceName), req.query.state || req.body.state || null, (e)=>{
           if (e) {
             res.json({ error: e});
           }
