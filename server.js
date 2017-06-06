@@ -39,8 +39,6 @@ router.route('/interface')
 router.route('/interface/:ifaceName')
   .get((req, res)=> {
     console.log("request to get interface state.");
-    console.log(req.body);
-    console.log(req.query);
     // check to see if the requested interfaceName exists in our ifaceMap
     if (ifaceMap.has(req.params.ifaceName)) {
       iface.get(ifaceMap.get(req.params.ifaceName), (err, results)=>{
@@ -79,15 +77,18 @@ router.route('/interface/:ifaceName')
             res.json({ error: e});
           }
           else {
-            iface.get(ifaceMap.get(req.params.ifaceName), (err, results)=>{
-              if (err) {
-                console.log(err);
-                res.json({ state: 'error'});
-              }
-              else {
-                res.json({state: results});
-              }
-            });
+            // add in a 500ms delay before looking up interface state and returning it
+            setTimeout(()=>{
+              iface.get(ifaceMap.get(req.params.ifaceName), (err, results)=>{
+                if (err) {
+                  console.log(err);
+                  res.json({ state: 'error'});
+                }
+                else {
+                  res.json({state: results});
+                }
+              });
+            }, 500)
           }
         })
       // requested interfaceName is not in our map...send 404.
