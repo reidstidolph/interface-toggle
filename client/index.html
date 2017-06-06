@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="onoffswitch">
-    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="ifacetoggle" onclick="toggle(this);" checked="false">
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="ifacetoggle" onclick="toggle(this);">
     <label class="onoffswitch-label" for="myonoffswitch">
       <span class="onoffswitch-inner"></span>
       <span class="onoffswitch-switch"></span>
@@ -52,7 +52,7 @@ function toggle(status){
   }
 }
 
-/* get initial interface state, and set state of iface toggle switch
+// get initial interface state, and set state of iface toggle switch
 iface.get("int1", function(err, results){
   if (err) {
     console.log("got error");
@@ -67,6 +67,6 @@ iface.get("int1", function(err, results){
     }
   }
 })
-*/
+
 </script>
 </html>
