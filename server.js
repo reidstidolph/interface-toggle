@@ -74,7 +74,8 @@ router.route('/interface/:ifaceName')
       if (ifaceMap.has(req.params.ifaceName)) {
         iface.set(ifaceMap.get(req.params.ifaceName), req.query.state || req.body.state || null, (e)=>{
           if (e) {
-            res.json({ error: e});
+            console.log(e);
+            res.status(500).send('Unable to change interface state');
           }
           else {
             // add in a 500ms delay before looking up interface state and returning it
