@@ -7,10 +7,8 @@
   <script src="ifacectl.js"></script>
 </head>
 <body>
-  Hello world!
-
   <div class="onoffswitch">
-    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="ifacetoggle" onclick="toggle(this);" checked>
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="ifacetoggle" onclick="toggle(this);" checked="false">
     <label class="onoffswitch-label" for="myonoffswitch">
       <span class="onoffswitch-inner"></span>
       <span class="onoffswitch-switch"></span>
@@ -20,8 +18,38 @@
 <script>
 
 function toggle(status){
-  console.log("got toggle!");
-  console.log("new value is: " + status.checked);
+  console.log("changing interface state");
+  if (status.checked === true) {
+    iface.set("int1", "up", function(err, results){
+      if (err) {
+        console.log("got error");
+        console.log(err);
+      } else {
+        console.log("got results");
+        console.log(results);
+        if (results.state == "up") {
+          document.getElementById("ifacetoggle").checked = true;
+        } else if (results.state == "down") {
+          document.getElementById("ifacetoggle").checked = false;
+        }
+      }
+    })
+  } else if (status.checked === false) {
+    iface.set("int1", "down", function(err, results){
+      if (err) {
+        console.log("got error");
+        console.log(err);
+      } else {
+        console.log("got results");
+        console.log(results);
+        if (results.state == "up") {
+          document.getElementById("ifacetoggle").checked = true;
+        } else if (results.state == "down") {
+          document.getElementById("ifacetoggle").checked = false;
+        }
+      }
+    })
+  }
 }
 
 // get initial interface state, and set state of iface toggle switch
