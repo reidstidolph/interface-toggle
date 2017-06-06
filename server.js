@@ -5,13 +5,17 @@ const express    = require('express');        // call express
 const app        = express();                 // define our app using express
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 8080;        // set our port
-const iface = require('./interface');
+const iface = require('./ifaceCtl');
+
+// Map of interfaces available to be managed. Key is the name of the interace
+// available to the front-end. Value is the interface name in in the back-end.
+const ifaceMap = new Map([
+  ['int1', 'enp0s8'],
+  ['int2', 'enp0s9']
+]);
 
 // parse application/json
 app.use(bodyParser.json());
-
-
-
 app.use(express.static('client')); // serve client HTML
 
 // ROUTES FOR OUR API
@@ -24,6 +28,31 @@ router.get('/', function(req, res) {
 });
 
 router.route('/interface')
+  .get((req, res)=> {
+
+    console.log("request to get interfaces.");
+    console.log(req.body);
+    console.log(req.query);
+    res.json(Array.from(ifaceMap.keys()));
+  })
+
+// more routes for our API will happen here
+router.route('/interface/:name')
+  .get((req, res)=> {
+
+    console.log("request to get interface state.");
+    console.log(req.body);
+    console.log(req.query);
+    console.log(req.params);
+    iface.get((err, results)=>{
+      if (err) {
+        res.json({ state: err});
+      }
+      else {
+        res.json({state: results});
+      }
+    });
+  })
   .post((req, res)=> {
 
     console.log("request to change interface state.");
@@ -43,22 +72,6 @@ router.route('/interface')
       }
     })
   })
-  .get((req, res)=> {
-
-    console.log("request to get interface state.");
-    console.log(req.body);
-    console.log(req.query);
-    iface.get((err, results)=>{
-      if (err) {
-        res.json({ state: err});
-      }
-      else {
-        res.json({state: results});
-      }
-    });
-  })
-
-// more routes for our API will happen here
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
