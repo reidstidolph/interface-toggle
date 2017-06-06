@@ -4,16 +4,29 @@
   <meta charset="UTF-8">
   <title>Interface toggle</title>
   <link rel="stylesheet" type="text/css" href="switch.css">
+  <script src="ifacectl.js"></script>
 </head>
 <body>
   Hello world!
 
   <div class="onoffswitch">
-    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" onclick="toggle(this);" checked>
     <label class="onoffswitch-label" for="myonoffswitch">
       <span class="onoffswitch-inner"></span>
       <span class="onoffswitch-switch"></span>
     </label>
   </div>
 </body>
+<script>
+
+function toggle(status){
+  console.log("got toggle!");
+  console.log("new value is: " + status.checked);
+}
+
+ifacectl.get("int1", function(){
+  console.log("got results");
+})
+
+</script>
 </html>

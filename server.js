@@ -5,7 +5,7 @@ const express    = require('express');        // call express
 const app        = express();                 // define our app using express
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 8080;        // set our port
-const iface = require('./ifaceCtl');
+const iface = require('./ifacectl');
 
 // Map of interfaces available to be managed. Key is the name of the interace
 // available to the front-end. Value is the interface name in in the back-end.
