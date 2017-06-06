@@ -45,7 +45,8 @@ router.route('/interface/:ifaceName')
     if (ifaceMap.has(req.params.ifaceName)) {
       iface.get(ifaceMap.get(req.params.ifaceName), (err, results)=>{
         if (err) {
-          res.json({ state: err});
+          console.log(err);
+          res.json({ state: 'error'});
         }
         else {
           res.json({state: results});
