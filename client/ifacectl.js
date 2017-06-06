@@ -16,7 +16,7 @@ var iface = {
           callback(e, null);
         }
       // request failed
-      } else {
+    } else if (this.readyState == 4 && this.status != 200) {
         callback("request failed with " + this.status, null);
       }
     };
