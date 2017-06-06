@@ -36,14 +36,14 @@ router.route('/interface')
   })
 
 // more routes for our API will happen here
-router.route('/interface/:name')
+router.route('/interface/:ifaceName')
   .get((req, res)=> {
     console.log("request to get interface state.");
     console.log(req.body);
     console.log(req.query);
     console.log(req.params);
-    if (ifaceMap.has(req.params)) {
-      iface.get(ifaceMap.get(req.params), (err, results)=>{
+    if (ifaceMap.has(req.params.ifaceName)) {
+      iface.get(ifaceMap.get(req.params.ifaceName), (err, results)=>{
         if (err) {
           res.json({ state: err});
         }
