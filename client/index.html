@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="onoffswitch">
-    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="ifacetoggle" onclick="toggle(this);">
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="ifacetoggle" onclick="toggle(this);" checked>
     <label class="onoffswitch-label" for="myonoffswitch">
       <span class="onoffswitch-inner"></span>
       <span class="onoffswitch-switch"></span>
@@ -60,13 +60,11 @@ iface.get("int1", function(err, results){
   } else {
     console.log("got results");
     console.log(results);
-    /*
     if (results.state == "up") {
       document.getElementById("ifacetoggle").checked = true;
     } else if (results.state == "down") {
       document.getElementById("ifacetoggle").checked = false;
     }
-    */
   }
 })
 
