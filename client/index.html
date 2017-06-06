@@ -24,8 +24,8 @@ function toggle(status){
   console.log("new value is: " + status.checked);
 }
 
-iface.get("int1", function(){
-  console.log("got results");
+iface.get("int1", function(err, results){
+  console.log("got results: " + results);
 })
 
 </script>
