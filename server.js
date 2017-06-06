@@ -60,17 +60,13 @@ router.route('/interface/:ifaceName')
   // POST manipulates interface state
   .post((req, res)=> {
     console.log("request to change interface state.");
-    console.log(req.query);
-    console.log(Object.keys(req.query).length);
-    console.log(req.body);
-    console.log(Object.keys(req.body).length);
     // basic validation of request query and body
     if ((
-      req.query.length === 0 ||
+      Object.keys(req.query).length === 0 ||
       req.query.state === 'up' ||
       req.query.state === 'down'
       ) && (
-      req.body.length === 0 ||
+      Object.keys(req.body).length === 0 ||
       req.body.state === 'up' ||
       req.body.state === 'down'
       )
