@@ -31,27 +31,29 @@ router.route('/interface')
   .get((req, res)=> {
 
     console.log("request to get interfaces.");
-    console.log(req.body);
-    console.log(req.query);
+    // send array of only the keys from the ifaceMap
     res.json(Array.from(ifaceMap.keys()));
   })
 
 // more routes for our API will happen here
 router.route('/interface/:name')
   .get((req, res)=> {
+    if (ifaceMap.has(req.params)) {
+      console.log("request to get interface state.");
+      console.log(req.body);
+      console.log(req.query);
+      console.log(req.params);
+      iface.get(ifaceMap.get(req.params), (err, results)=>{
+        if (err) {
+          res.json({ state: err});
+        }
+        else {
+          res.json({state: results});
+        }
+      });
+    } else {
 
-    console.log("request to get interface state.");
-    console.log(req.body);
-    console.log(req.query);
-    console.log(req.params);
-    iface.get((err, results)=>{
-      if (err) {
-        res.json({ state: err});
-      }
-      else {
-        res.json({state: results});
-      }
-    });
+    }
   })
   .post((req, res)=> {
 
