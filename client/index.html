@@ -25,7 +25,13 @@ function toggle(status){
 }
 
 iface.get("int1", function(err, results){
-  console.log("got results: " + results);
+  if (err) {
+    console.log("got error");
+    console.log(err);
+  } else {
+    console.log("got results");
+    console.log(results);
+  }
 })
 
 </script>
