@@ -35,13 +35,13 @@ router.route('/interface')
     res.json(Array.from(ifaceMap.keys()));
   })
 
-// more routes for our API will happen here
+// route to resource for sepecific interface
 router.route('/interface/:ifaceName')
   .get((req, res)=> {
     console.log("request to get interface state.");
     console.log(req.body);
     console.log(req.query);
-    console.log(req.params);
+    // check to see if the requested interfaceName exists in our ifaceMap
     if (ifaceMap.has(req.params.ifaceName)) {
       iface.get(ifaceMap.get(req.params.ifaceName), (err, results)=>{
         if (err) {
@@ -52,28 +52,52 @@ router.route('/interface/:ifaceName')
           res.json({state: results});
         }
       });
+    // requested interfaceName is not in our map...send 404.
     } else {
       res.status(404).send('Not found.');
     }
   })
+  // POST manipulates interface state
   .post((req, res)=> {
-
     console.log("request to change interface state.");
-    iface.set((e)=>{
-      if (e) {
-        res.json({ error: e});
-      }
-      else {
-        iface.get((err, results)=>{
-          if (err) {
-            res.json({ state: err});
+    // basic validation of request query and body
+    if ((
+      req.query.length === 0 ||
+      req.query.state === 'up' ||
+      req.query.state === 'down'
+      ) && (
+      req.body.length === 0 ||
+      req.body.state === 'up' ||
+      req.body.state === 'down'
+      )
+    ) {
+      // query and body is valid
+      // check to see if the requested interfaceName exists in our ifaceMap
+      if (ifaceMap.has(req.params.ifaceName)) {
+        iface.set(ifaceMap.get(ifaceMap.get(req.params.ifaceName), req.query.state || req.body.state || null, (e)=>{
+          if (e) {
+            res.json({ error: e});
           }
           else {
-            res.json({state: results});
+            iface.get(ifaceMap.get(req.params.ifaceName), (err, results)=>{
+              if (err) {
+                console.log(err);
+                res.json({ state: 'error'});
+              }
+              else {
+                res.json({state: results});
+              }
+            });
           }
-        });
+        })
+      // requested interfaceName is not in our map...send 404.
+      } else {
+        res.status(404).send('Not found');
       }
-    })
+    }
+    else {
+      res.status(400).send('Bad request');
+    }
   })
 
 // REGISTER OUR ROUTES -------------------------------
